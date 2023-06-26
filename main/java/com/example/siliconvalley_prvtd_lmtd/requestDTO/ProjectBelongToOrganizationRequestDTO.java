@@ -1,0 +1,26 @@
+package com.example.siliconvalley_prvtd_lmtd.requestDTO;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class ProjectBelongToOrganizationRequestDTO {
+    public class OrganizationEntity {
+        @NotNull(message = "Name is mandatory")
+        private Long organizationId;
+        @NotBlank(message = "Name is mandatory")
+        private String organizationName;
+        @NotBlank(message = "Name is mandatory")
+        private String Status;
+        @NotNull(message = "Name is mandatory")
+        private Integer totalEmployees;
+        @NotBlank(message = "Name is mandatory")
+        private String defaultCountry;
+        @NotBlank(message = "Name is mandatory")
+        private String defaultTimezone;
+        @NotBlank(message = "Name is mandatory")
+        private String companyType;
+        @NotBlank(message = "Name is mandatory")
+        private String industry;
+
+    }
+}
