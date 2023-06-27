@@ -1,13 +1,9 @@
 package com.example.siliconvalley_prvtd_lmtd.requestDTO;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 @Setter
 @Getter
 @AllArgsConstructor

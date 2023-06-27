@@ -2,9 +2,8 @@ package com.example.siliconvalley_prvtd_lmtd.requestDTO;
 
 
 import lombok.*;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 @Setter
 @Getter
 @AllArgsConstructor
