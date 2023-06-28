@@ -14,9 +14,9 @@ import lombok.Setter;
 public class OrganizationResponseDTO {
 
 
-    private String organizationId;
+    private String organizationCode;
 
-    private String name;
+    private String organizationName;
 
     private Status Status;
 

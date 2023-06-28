@@ -15,7 +15,7 @@ public class SubOrganizationUpdateRequestDTO {
 
 
     @NotBlank(message = "Name is mandatory")
-    private String name;
+    private String subOrganizationName;
 
     private Status status;
 

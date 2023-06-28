@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrganizationRepository extends JpaRepository<OrganizationEntity,String> {
-    OrganizationEntity findByOrganizationId(String regId);
-    boolean existsByOrganizationId(String regId);
+    OrganizationEntity findByOrganizationCode(String regId);
+    boolean existsByOrganizationCode(String regId);
 }

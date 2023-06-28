@@ -1,5 +1,6 @@
 package com.example.siliconvalley_prvtd_lmtd.controller;
 
+import com.example.siliconvalley_prvtd_lmtd.enumBox.Status;
 import com.example.siliconvalley_prvtd_lmtd.exception.ErrorResponse;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.SubOrganizationIndexRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.SubOrganizationRequestDTO;
@@ -26,34 +27,50 @@ import java.util.List;
 public class SubOrganizationController {
     @Autowired
     private SubOrganizationService subOrganizationService;
-    @PostMapping(value = "regsiter/{id}")
-    public SubOrganizationEndResponseDTO register(@PathVariable(value="id") String regId, @Valid @RequestBody SubOrganizationIndexRequestDTO subOrganizationIndexRequestDTO){
+
+    @PostMapping(value = "regsiter/{organizationCode}")
+    public SubOrganizationEndResponseDTO register(@PathVariable(value = "organizationCode") String organizationCode, @Valid @RequestBody SubOrganizationIndexRequestDTO subOrganizationIndexRequestDTO) {
         log.info(subOrganizationIndexRequestDTO.toString());
-        SubOrganizationEndResponseDTO subOrganizationEndResponseDTO =subOrganizationService.register(regId,subOrganizationIndexRequestDTO);
+        SubOrganizationEndResponseDTO subOrganizationEndResponseDTO = subOrganizationService.registerSubOrganization(organizationCode, subOrganizationIndexRequestDTO);
         return subOrganizationEndResponseDTO;
     }
-    @GetMapping(value="/getall/{page}/{size}/{column}")
-    public List<SubOrganizationResponseDTO> getAllOrganization(@PathVariable (value = "page") int page, @PathVariable(value = "size") int size,@PathVariable(value="column") String column){
-        Pageable pageable = PageRequest.of(page,size, Sort.by(column));
-        List<SubOrganizationResponseDTO> subOrganizationResponseDTOList=subOrganizationService.getAllSubOrganization(pageable);
+
+    @GetMapping(value = "/getall/{page}/{size}/{column}")
+    public List<SubOrganizationResponseDTO> getAllSubOrganization(@PathVariable(value = "page") int page, @PathVariable(value = "size") int size, @PathVariable(value = "column") String column) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(column));
+        List<SubOrganizationResponseDTO> subOrganizationResponseDTOList = subOrganizationService.getAllSubOrganization(pageable);
         return subOrganizationResponseDTOList;
     }
-    @PutMapping(value = "update/{id}")
-    public SubOrganizationResponseDTO updateSubOrganization(@PathVariable(value = "id") String organizationId , @Valid @RequestBody SubOrganizationUpdateRequestDTO subOrganizationUpdateRequestDTO){
-     SubOrganizationResponseDTO subOrganizationResponseDTO=subOrganizationService.updateOrganization(organizationId,subOrganizationUpdateRequestDTO);
-      return subOrganizationResponseDTO;
+
+    @PutMapping(value = "update/{subOrganizationCode}")
+    public SubOrganizationResponseDTO updateSubOrganization(@PathVariable(value = "subOrganizationCode") String subOrganizationCode, @Valid @RequestBody SubOrganizationUpdateRequestDTO subOrganizationUpdateRequestDTO) {
+        SubOrganizationResponseDTO subOrganizationResponseDTO = subOrganizationService.updateSubOrganization(subOrganizationCode, subOrganizationUpdateRequestDTO);
+        return subOrganizationResponseDTO;
     }
+
     @Transactional
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteRecordById(@PathVariable(value="id") String organizationId){
-        if(subOrganizationService.deleteRecordById(organizationId)){
-            ErrorResponse errorResponse = new ErrorResponse("CODE_606","given record deleted successfully");
+    @DeleteMapping(value = "/{SubOrganizationCode}")
+    public ResponseEntity<?> deleteRecordBySubOrgCode(@PathVariable(value = "SubOrganizationCode") String SubOrganizationCode) {
+        if (subOrganizationService.deleteRecordBySubOrgCode(SubOrganizationCode)) {
+            ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
 
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
-        }else{
+        } else {
             return null;
 
         }
 
+    }
+
+    @DeleteMapping(value = "deactivate/{SubOrganizationCode}/{status}")
+    public ResponseEntity<?> statusOfSubOrg(@PathVariable(value = "SubOrganizationCode") String SubOrganizationCode, @PathVariable(value = "status") Status status) {
+        if (subOrganizationService.statusOfSubOrg(SubOrganizationCode, status)) {
+            ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
+
+            return new ResponseEntity<>(errorResponse, HttpStatus.OK);
+        } else {
+            return null;
+
+        }
     }
 }

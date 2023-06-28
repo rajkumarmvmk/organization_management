@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public class ProjectsResponseDTO {
 
-    private Long projectId;
+    private Long projectCode;
     private String projectTitle;
-    private String organizationName;
+    private String projectOrganizationName;
     private String status;
     private Integer projectDuration;
     private LocalDate StartDate;

@@ -10,13 +10,14 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Table(name="employee_address")
 public class EmployeeAddressEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name ="uuid2", strategy = "uuid2" )
     private String id;
     @Column(length = 10,nullable = false,unique = true)
-    private String employeeId;
+    private String employeeCode;
     @Column(length = 4,nullable = false)
     private Integer doorNo;
     @Column(length = 30,nullable = false)

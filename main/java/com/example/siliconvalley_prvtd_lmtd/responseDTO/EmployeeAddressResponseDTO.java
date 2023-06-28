@@ -2,7 +2,7 @@ package com.example.siliconvalley_prvtd_lmtd.responseDTO;
 
 public class EmployeeAddressResponseDTO {
 
-    private Long employeeId;
+    private Long employeeCode;
 
     private Integer doorNo;
 

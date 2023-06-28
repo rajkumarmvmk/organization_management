@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Table(name="organization")
 public class OrganizationEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -18,10 +19,10 @@ public class OrganizationEntity {
     private String id;
 
     @Column(length = 12,nullable = false,unique = true)
-    private String organizationId;
+    private String organizationCode;
 
     @Column(length = 50,nullable = false)
-    private String name;
+    private String organizationName;
 
     @Enumerated(EnumType.STRING)
     private Status status;

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @ToString
+@Table(name="projects")
 public class ProjectsEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -19,15 +20,15 @@ public class ProjectsEntity {
     private String id;
 
     @Column(length = 10,nullable = false)
-    private Long projectId;
+    private Long projectCode;
 
     @Column(length = 30,nullable = false)
     private String projectTitle;
 
     @Column(length = 30,nullable = false)
-    private String organizationName;
+    private String projectOrganizationName;
 
-    @Column(nullable = false)
+
     @Enumerated(EnumType.STRING)
     private Status status;  //enum
 

@@ -3,8 +3,8 @@ package com.example.siliconvalley_prvtd_lmtd.responseDTO;
 public class ProjectBelongToOrganizationResponseDTO {
     public class OrganizationEntity {
 
-        private Long organizationId;
-        private String organizationName;
+        private Long clientOrganizationCode;
+        private String clientOrganizationName;
         private String Status;
         private Integer totalEmployees;
         private String defaultCountry;

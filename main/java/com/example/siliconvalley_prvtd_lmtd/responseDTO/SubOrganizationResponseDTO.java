@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 public class SubOrganizationResponseDTO {
 
-        private String organizationId;
-        private String name;
+        private String subOrganizationCode;
+        private String subOrganizationName;
         private Status status;
         private String country;
         private String timezone;

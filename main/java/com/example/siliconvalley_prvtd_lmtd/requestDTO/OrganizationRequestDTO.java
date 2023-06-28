@@ -13,10 +13,10 @@ import jakarta.validation.constraints.NotNull;
 public class OrganizationRequestDTO {
 
     @NotBlank(message = "Id is mandatory")
-    private String organizationId;
+    private String organizationCode;
     @NotBlank(message = "Name is mandatory")
-    private String name;
-    @NotBlank(message="Status define is mandatory")
+    private String organizationName;
+
     private Status  status;
     @NotBlank(message = "Country is mandatory")
     private String country;

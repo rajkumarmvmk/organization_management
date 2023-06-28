@@ -2,7 +2,7 @@ package com.example.siliconvalley_prvtd_lmtd.responseDTO;
 
 public class OrganizationAddressResponseDTO {
 
-    private Long organizationId;
+    private Long organizationCode;
     private Integer doorNo;
     private String streetName;
     private String city;

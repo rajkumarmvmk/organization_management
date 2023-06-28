@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class EmployeeDetailsResponseDTO {
     private String id;
-    private Long employeeId;
+    private Long employeeCode;
     private String employeeName;
     private LocalDate dateOfBirth;
     private Integer experience;

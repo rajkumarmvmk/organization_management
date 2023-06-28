@@ -14,10 +14,10 @@ import lombok.*;
 public class SubOrganizationRequestDTO {
 
         @NotBlank(message = "Name is mandatory")
-        private String organizationId;
+        private String SubOrganizationCode;
 
         @NotBlank(message = "Name is mandatory")
-        private String name;
+        private String SubOrganizationName;
 
         private Status status;
 
@@ -28,6 +28,7 @@ public class SubOrganizationRequestDTO {
         private String timezone;
 
         private CompanyType companyType;
+
         @NotBlank(message = "Name is mandatory")
         private String industry;
 

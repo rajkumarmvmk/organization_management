@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Table(name="organization_address")
 public class OrganizationAddressEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -16,7 +17,7 @@ public class OrganizationAddressEntity {
     private String id;
 
     @Column(length = 12,nullable = false,unique = true)
-    private Long organizationId;
+    private Long organizationCode;
 
     @Column(length = 4,nullable = false)
     private Integer doorNo;

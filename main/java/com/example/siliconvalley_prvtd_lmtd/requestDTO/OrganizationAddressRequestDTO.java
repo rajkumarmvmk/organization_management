@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 @ToString
 public class OrganizationAddressRequestDTO {
     @NotNull(message = "Name is mandatory")
-    private Long organizationId;
+    private Long organizationCode;
     @NotNull(message = "Name is mandatory")
     private Integer doorNo;
     @NotBlank(message = "Name is mandatory")

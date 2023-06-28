@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Table(name="employee_technology")
 public class EmployeeTechnologyEntity {
     @Id
     @GeneratedValue(generator = "uuid2")

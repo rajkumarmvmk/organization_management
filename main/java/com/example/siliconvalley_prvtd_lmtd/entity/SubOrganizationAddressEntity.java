@@ -9,13 +9,14 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Table(name="sub_organization_address")
 public class SubOrganizationAddressEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name ="uuid2", strategy = "uuid2" )
     private String id;
     @Column(length = 12,nullable = false,unique = true)
-    private Long subOrganizationId;
+    private Long subOrganizationCode;
     @Column(length = 4,nullable = false)
     private Integer doorNo;
     @Column(length = 30,nullable = false)

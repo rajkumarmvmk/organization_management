@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Table(name="client")
 public class ClientEntity {
 
         @Id
@@ -19,10 +20,10 @@ public class ClientEntity {
         private String id;
 
         @Column(length = 12,nullable = false)
-        private String clientId;
+        private String clientCode;
 
         @Column(length = 30,nullable = false)
-        private String name;
+        private String clientName;
 
         @Column(nullable = false)
         @Enumerated(EnumType.STRING)

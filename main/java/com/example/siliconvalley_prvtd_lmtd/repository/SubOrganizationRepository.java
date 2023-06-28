@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubOrganizationRepository extends JpaRepository<SubOrganizationEntity,String> {
-    SubOrganizationEntity findByOrganizationId(String OrganizationID);
+    SubOrganizationEntity findBySubOrganizationCode(String subOrganizationCode);
     Page<SubOrganizationEntity> findAll(Pageable pageable);
-    SubOrganizationEntity getByOrganizationId(String organizationId);
-    boolean existsByOrganizationId(String organizationId);
-    void deleteByOrganizationId(String organizationId);
+    SubOrganizationEntity getBySubOrganizationCode(String subOrganizationCode);
+  //  boolean existsBySubOrganizationCode(String subOrganizationCode);
+     void deleteBySubOrganizationCode(String subOrganizationCode);
 }

@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 public class ProjectsRequestDTO {
     @NotNull(message = "Name is mandatory")
-    private Long projectId;
+    private Long projectCode;
     @NotBlank(message = "Name is mandatory")
     private String projectTitle;
     @NotBlank(message = "Name is mandatory")
-    private String organizationName;
+    private String projectOrganizationName;
     @NotBlank(message = "Name is mandatory")
     private String status;
     @NotBlank(message = "Name is mandatory")

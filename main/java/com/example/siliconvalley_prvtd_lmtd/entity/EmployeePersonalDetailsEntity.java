@@ -12,15 +12,16 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @ToString
+@Table(name="employee_personal_details")
 public class EmployeePersonalDetailsEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name ="uuid2", strategy = "uuid2" )
     private String id;
     @Column(length = 10,nullable = false,unique = true)
-    private String employeeId;
+    private String employeeCode;
     @Column(length = 30,nullable = false)
-    private String name;
+    private String employeeName;
     @Column(nullable = false)
     private LocalDate dateOfBirth;
     @Column(length = 2)

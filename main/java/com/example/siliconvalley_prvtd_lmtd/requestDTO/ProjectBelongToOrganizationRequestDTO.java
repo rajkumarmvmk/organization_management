@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotNull;
 public class ProjectBelongToOrganizationRequestDTO {
     public class OrganizationEntity {
         @NotNull(message = "Name is mandatory")
-        private Long organizationId;
+        private Long clientOrganizationCode;
         @NotBlank(message = "Name is mandatory")
-        private String organizationName;
+        private String clientOrganizationName;
         @NotBlank(message = "Name is mandatory")
         private String Status;
         @NotNull(message = "Name is mandatory")

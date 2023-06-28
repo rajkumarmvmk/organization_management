@@ -22,9 +22,9 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
     @Autowired
     private OrganizationRepository organizationRepository;
     @Override
-    public OrganizationEntity getById(String regId){   //organization Id fetching
-        if(organizationRepository.existsByOrganizationId(regId)){
-            OrganizationEntity organizationEntity = organizationRepository.findByOrganizationId(regId);
+    public OrganizationEntity fetching(String organizationCode){   //organization Id fetching
+        if(organizationRepository.existsByOrganizationCode(organizationCode)){
+            OrganizationEntity organizationEntity = organizationRepository.findByOrganizationCode(organizationCode);
             return organizationEntity;
         }else{
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
@@ -37,7 +37,7 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
             log.info(String.valueOf(subOrganizationEntity));
             subOrganizationRepository.save(subOrganizationEntity);
             log.info("-----------------------------------------");
-            SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.findByOrganizationId(subOrganizationEntity.getOrganizationId());
+            SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.findBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
             log.info(String.valueOf(subOrganizationEntity1));
             return subOrganizationEntity1;
         }catch (Exception e){
@@ -54,38 +54,25 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
        }
     }
     @Override
-    public SubOrganizationEntity getBySubOrgId(String organizationId){
-        SubOrganizationEntity subOrganizationEntity = subOrganizationRepository.getByOrganizationId(organizationId);
+    public SubOrganizationEntity getBySubOrgCode(String subOrganizationCode){
+        SubOrganizationEntity subOrganizationEntity = subOrganizationRepository.findBySubOrganizationCode(subOrganizationCode);
         return subOrganizationEntity;
     }
     @Override
     public SubOrganizationEntity saveTheChange(SubOrganizationEntity subOrganizationEntity){
         try{
             subOrganizationRepository.save(subOrganizationEntity);
-           SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.getByOrganizationId(subOrganizationEntity.getOrganizationId());
+           SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.getBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
            return  subOrganizationEntity1;
         }catch (Exception e){
             throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
         }
     }
-    @Override
-    public boolean existsById(String organizationId){
-        boolean response = subOrganizationRepository.existsByOrganizationId(organizationId);
-        return response;
-    }
-    @Override
-    public void deleteRecordById(String organizationId){
-        try{
-            subOrganizationRepository.deleteByOrganizationId(organizationId);
-              }catch(Exception e){
-            throw  new CustomException(ErrorCodes.CODE_607.name(),ErrorCodes.CODE_607.getMessage());
-        }
 
-    }
 
     @Override
     public void deleteSubOrganization(SubOrganizationEntity subOrganizationEntity) {
-        subOrganizationRepository.delete(subOrganizationEntity);
+        subOrganizationRepository.deleteBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
     }
 
 }

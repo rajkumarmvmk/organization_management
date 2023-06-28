@@ -8,13 +8,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface SubOrganizationDAO {
-    OrganizationEntity getById(String regId);
+    OrganizationEntity fetching(String organizationCode);
     SubOrganizationEntity register( SubOrganizationEntity subOrganizationEntity);
      Page<SubOrganizationEntity> getAllSubOrganization(Pageable pageable);
-    SubOrganizationEntity getBySubOrgId(String organizationId);
+    SubOrganizationEntity getBySubOrgCode(String subOrganizationCode);
     SubOrganizationEntity saveTheChange(SubOrganizationEntity subOrganizationEntity);
-    boolean existsById(String organizationId);//checking subOrganization by Id
-    void deleteRecordById(String organizationId);
-
     void deleteSubOrganization(SubOrganizationEntity subOrganizationEntity);
 }

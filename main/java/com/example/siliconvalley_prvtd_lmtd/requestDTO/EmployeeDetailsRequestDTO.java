@@ -15,7 +15,7 @@ public class EmployeeDetailsRequestDTO {
     @NotNull(message = "Name is mandatory")
     private String id;
     @NotNull(message = "Name is mandatory")
-    private Long employeeId;
+    private Long employeeCode;
     @NotBlank(message = "Name is mandatory")
     private String employeeName;
     @JsonFormat(pattern="dd-MM-yyyy")
