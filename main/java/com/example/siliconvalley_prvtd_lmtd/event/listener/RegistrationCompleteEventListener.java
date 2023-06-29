@@ -6,8 +6,10 @@ import com.example.siliconvalley_prvtd_lmtd.service.AdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
+@Component
 @Slf4j
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
     @Autowired
