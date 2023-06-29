@@ -15,7 +15,7 @@ public class AdminServiceIMPL implements AdminService{
     private VerificationTokenRepository verificationTokenRepository;
     @Autowired
     private AdminDAO adminDAO;
-    @Autowired
+    @Autowired(required = false)
     private PasswordEncoder passwordEncoder;
     @Override
    public AdminEntity registerAdmin(AdminDTO adminDTO){
