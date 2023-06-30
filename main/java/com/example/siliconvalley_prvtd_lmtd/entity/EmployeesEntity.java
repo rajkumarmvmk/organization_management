@@ -16,7 +16,7 @@ public class EmployeesEntity {
     @GenericGenerator(name ="uuid2", strategy = "uuid2" )
     private String id;
     @Column(length = 10,nullable = false,unique = true)
-    private Long employeeCode;
+    private String employeeCode;
 
     @Column(length = 30,nullable = false)
     private String employeeName;

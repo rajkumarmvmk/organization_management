@@ -9,17 +9,11 @@ import jakarta.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrganizationEmployeesRequestDTO {
+public class EmployeesRequestDTO {
     @NotNull(message = "Name is mandatory")
-    private Long employeeCode;
+    private String employeeCode;
     @NotBlank(message = "Name is mandatory")
     private String employeeName;
     @NotBlank(message = "Name is mandatory")
-    private String employeeRole;
-    @NotBlank(message = "Name is mandatory")
-    private String domain;
-    @NotBlank(message = "Name is mandatory")
-    private String bloodGroup;
-
-
+    private String designation;
 }

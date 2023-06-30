@@ -20,17 +20,13 @@ public class ProjectsEntity {
     private String id;
 
     @Column(length = 10,nullable = false)
-    private Long projectCode;
+    private String projectCode;
 
     @Column(length = 30,nullable = false)
     private String projectTitle;
 
-    @Column(length = 30,nullable = false)
-    private String projectOrganizationName;
-
-
     @Enumerated(EnumType.STRING)
-    private Status status;  //enum
+    private Status status;
 
     @Column(nullable = false)
     private LocalDate startDate;

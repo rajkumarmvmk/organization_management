@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class organizationDAOIMPL implements OrganizationDAO{
     @Autowired
     private OrganizationRepository organizationRepository;
+    @Override
     public OrganizationEntity registerInRepository(OrganizationEntity organizationEntity){
        try{    log.info(String.valueOf(organizationEntity));
            organizationRepository.save(organizationEntity);
@@ -19,5 +20,10 @@ public class organizationDAOIMPL implements OrganizationDAO{
        }catch(Exception e){
            throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
        }
+    }
+    @Override
+    public OrganizationEntity fetchRecord(String organizationCode){
+        OrganizationEntity organizationEntity=organizationRepository.findByOrganizationCode(organizationCode);
+        return organizationEntity;
     }
 }
