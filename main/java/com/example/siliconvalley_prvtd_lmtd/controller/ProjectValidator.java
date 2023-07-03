@@ -19,7 +19,6 @@ public class ProjectValidator {
     public List<ProjectsResponseDTO> validating(){
         List<ProjectsResponseDTO> projectsResponseDTOS =projectService.validate();
         return projectsResponseDTOS;
-
     }
 
 }
