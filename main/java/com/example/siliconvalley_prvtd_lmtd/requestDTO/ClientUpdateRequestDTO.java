@@ -11,10 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ClientRequestDTO {
+public class ClientUpdateRequestDTO {
 
-        @NotNull(message = "code is mandatory")
-        private String clientCode;
         @NotBlank
         private String clientName;
 

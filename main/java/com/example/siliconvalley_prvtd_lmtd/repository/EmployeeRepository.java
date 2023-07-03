@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface EmployeeRepository extends JpaRepository<EmployeesEntity,String> {
     boolean existsByEmployeeCode(String employeeCode);
     EmployeesEntity findByEmployeeCode(String employeeCode);
+    void deleteByEmployeeCode (String employeeCode);
 }

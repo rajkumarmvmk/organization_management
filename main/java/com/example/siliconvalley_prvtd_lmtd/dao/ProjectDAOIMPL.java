@@ -1,5 +1,6 @@
 package com.example.siliconvalley_prvtd_lmtd.dao;
 
+import com.example.siliconvalley_prvtd_lmtd.entity.ClientEntity;
 import com.example.siliconvalley_prvtd_lmtd.entity.ProjectsEntity;
 import com.example.siliconvalley_prvtd_lmtd.exception.CustomException;
 import com.example.siliconvalley_prvtd_lmtd.exception.ErrorCodes;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
 
 
 @Service
@@ -44,6 +45,38 @@ public class ProjectDAOIMPL implements ProjectDAO{
             return projectsEntity1;
         }catch (Exception e){
             throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
+        }
+    }
+    @Override
+    public List<ProjectsEntity> getAll(){
+        List<ProjectsEntity> projectsEntityList=projectRepository.findAll();
+        return projectsEntityList;
+    }
+    @Override
+     public ProjectsEntity getTheRecords(String projectsCode){
+        if(projectRepository.existsByProjectCode(projectsCode)) {
+            ProjectsEntity projectsEntity = projectRepository.findByProjectCode(projectsCode);
+            return projectsEntity;
+        }else{
+            throw  new CustomException(ErrorCodes.CODE_602.name(),ErrorCodes.CODE_602.getMessage());
+        }
+    }
+    @Override
+    public ProjectsEntity saveTheChange(ProjectsEntity projectsEntity){
+        projectRepository.save((projectsEntity));
+        if(projectRepository.existsByProjectCode(projectsEntity.getProjectCode())){
+            ProjectsEntity projectsEntity1=projectRepository.findByProjectCode(projectsEntity.getProjectCode());
+            return projectsEntity1;
+        }else{
+            throw new CustomException(ErrorCodes.CODE_602.name(),ErrorCodes.CODE_602.getMessage());
+        }
+    }
+    @Override
+    public void deactivateTheRecord(ProjectsEntity projectsEntity){
+        try{
+            projectRepository.save(projectsEntity);
+        }catch (Exception e){
+            throw  new CustomException(ErrorCodes.CODE_607.name(),ErrorCodes.CODE_607.getMessage());
         }
     }
 

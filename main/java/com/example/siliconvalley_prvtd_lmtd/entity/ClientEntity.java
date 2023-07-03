@@ -42,7 +42,7 @@ public class ClientEntity {
         @Column(length = 30,nullable = false)
         private String industry;
 
-        @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+        @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
         private OrganizationEntity organizationEntity;
 
         @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)

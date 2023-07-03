@@ -12,6 +12,7 @@ import com.example.siliconvalley_prvtd_lmtd.enumBox.Status;
 import com.example.siliconvalley_prvtd_lmtd.exception.CustomException;
 import com.example.siliconvalley_prvtd_lmtd.exception.ErrorCodes;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.ProjectsRequestDTO;
+import com.example.siliconvalley_prvtd_lmtd.requestDTO.ProjectsUpdateRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ProjectsResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +23,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class ProjectServiceIMPL implements ProjectService {
@@ -94,10 +97,34 @@ public class ProjectServiceIMPL implements ProjectService {
        });
               return projectsResponseDTOS;
 
+    }
+    @Override
+    public List<ProjectsResponseDTO> getAll(){
+        List<ProjectsEntity> projectsEntityList=projectDAO.getAll();
+        List<ProjectsResponseDTO> projectsResponseDTOS=new ArrayList<>();
 
-
-
-
+        projectsEntityList.stream().forEach(list->{
+            ProjectsResponseDTO projectsResponseDTO = new ProjectsResponseDTO();
+            BeanUtils.copyProperties(list,projectsResponseDTO);
+            projectsResponseDTOS.add(projectsResponseDTO);
+        });
+        return projectsResponseDTOS;
+    }
+    @Override
+    public ProjectsResponseDTO updateProject(ProjectsUpdateRequestDTO projectsUpdateRequestDTO, String projectCode){
+        ProjectsEntity projectsEntity =projectDAO.getTheRecords(projectCode);
+        BeanUtils.copyProperties(projectsUpdateRequestDTO,projectsEntity);
+        ProjectsEntity projectsEntity1  =projectDAO.saveTheChange(projectsEntity);
+        ProjectsResponseDTO projectsResponseDTO=new ProjectsResponseDTO();
+        BeanUtils.copyProperties(projectsEntity1,projectsResponseDTO);
+        return projectsResponseDTO;
+    }
+    @Override
+    public  boolean deactivateRecordByProjectCode(String projectCode, Status status){
+        ProjectsEntity projectsEntity=projectDAO.getTheRecords(projectCode);
+        projectsEntity.setStatus(status);
+        projectDAO.deactivateTheRecord(projectsEntity);
+        return true;
     }
 }
 

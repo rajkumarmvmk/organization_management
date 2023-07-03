@@ -7,6 +7,9 @@ import com.example.siliconvalley_prvtd_lmtd.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClientDAOIMPL implements ClientDAO{
     @Autowired
@@ -31,5 +34,29 @@ public class ClientDAOIMPL implements ClientDAO{
             throw new CustomException(ErrorCodes.CODE_602.name(),ErrorCodes.CODE_602.getMessage());
         }
     }
+    @Override
+    public List<ClientEntity> getAll(){
+      List<ClientEntity> clientEntities=clientRepository.findAll();
+      return clientEntities;
 
+
+    }
+    @Override
+    public ClientEntity saveTheChange(ClientEntity clientEntity){
+        clientRepository.save(clientEntity);
+        if(clientRepository.existsByClientCode(clientEntity.getClientCode())){
+            ClientEntity clientEntity1=clientRepository.findByClientCode(clientEntity.getClientCode());
+            return clientEntity1;
+        }else{
+            throw new CustomException(ErrorCodes.CODE_602.name(),ErrorCodes.CODE_602.getMessage());
+        }
+    }
+    @Override
+    public void deactivateTheRecord(ClientEntity clientEntity){
+       try{
+           clientRepository.save(clientEntity);
+       }catch (Exception e){
+           throw  new CustomException(ErrorCodes.CODE_607.name(),ErrorCodes.CODE_607.getMessage());
+       }
+    }
 }

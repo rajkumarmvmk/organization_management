@@ -3,11 +3,11 @@ package com.example.siliconvalley_prvtd_lmtd.service;
 import com.example.siliconvalley_prvtd_lmtd.dao.EmployeeDAO;
 import com.example.siliconvalley_prvtd_lmtd.dao.OrganizationDAO;
 import com.example.siliconvalley_prvtd_lmtd.dao.SubOrganizationDAO;
-import com.example.siliconvalley_prvtd_lmtd.entity.EmployeesEntity;
-import com.example.siliconvalley_prvtd_lmtd.entity.OrganizationEntity;
-import com.example.siliconvalley_prvtd_lmtd.entity.SubOrganizationEntity;
+import com.example.siliconvalley_prvtd_lmtd.entity.*;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.EmployeesRequestDTO;
+import com.example.siliconvalley_prvtd_lmtd.requestDTO.EmployeesUpdateRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.EmployeesResponseDTO;
+import com.example.siliconvalley_prvtd_lmtd.responseDTO.ProjectsResponseDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +54,33 @@ public class EmployeeServiceIMPL implements EmployeeService{
         });
         return employeesResponseDTOS;
     }
+    @Override
+    public List<EmployeesResponseDTO> getAll(){
+        List<EmployeesEntity> employeesEntities = employeeDAO.getAll();
+        List<EmployeesResponseDTO> employeesResponseDTOS=new ArrayList<>();
 
+        employeesEntities.stream().forEach(list->{
+            EmployeesResponseDTO employeesResponseDTO = new EmployeesResponseDTO();
+            BeanUtils.copyProperties(list,employeesResponseDTO);
+            employeesResponseDTOS.add(employeesResponseDTO);
+        });
+        return employeesResponseDTOS;
+    }
+    @Override
+    public EmployeesResponseDTO updateEmployee(EmployeesUpdateRequestDTO employeesUpdateRequestDTO, String employeeCode){
+        EmployeesEntity employeesEntity=employeeDAO.getTheRecord(employeeCode);
+        BeanUtils.copyProperties(employeesUpdateRequestDTO,employeesEntity);
+        EmployeesEntity employeesEntity1=employeeDAO.saveTheChange(employeesEntity);
+        EmployeesResponseDTO employeesResponseDTO=new EmployeesResponseDTO();
+        BeanUtils.copyProperties(employeesEntity1,employeesResponseDTO);
+        return employeesResponseDTO;
+    }
+    @Override
+    public  boolean deleteRecordByEmployeeCode(String employeeCode){
+        EmployeesEntity employeesEntity=employeeDAO.getTheRecord(employeeCode);
+        employeesEntity.setSubOrganizationEntity(null);
+        employeesEntity.setOrganizationEntity(null);
+        employeeDAO.deleteTheRecord(employeesEntity);
+        return true;
+    }
 }
