@@ -86,6 +86,7 @@ public class SubOrganizationServiceIMPL implements SubOrganizationService {
 
 
         } else {
+            log.info("----------------------data not exists------------------------------------");
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
         }
 
@@ -102,6 +103,7 @@ public class SubOrganizationServiceIMPL implements SubOrganizationService {
 
 
         } else {
+            log.info("----------------------data not exists------------------------------------");
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
         }
 

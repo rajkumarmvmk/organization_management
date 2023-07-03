@@ -19,10 +19,11 @@ public class organizationDAOIMPL implements OrganizationDAO{
     private OrganizationRepository organizationRepository;
     @Override
     public OrganizationEntity registerInRepository(OrganizationEntity organizationEntity){
-       try{    log.info(String.valueOf(organizationEntity));
+       try{    log.info(String.valueOf("----------------------"+organizationEntity.getOrganizationCode()));
            organizationRepository.save(organizationEntity);
            return organizationEntity;
        }catch(Exception e){
+           log.info("--------------------save moment error--------------------------");
            throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
        }
     }
@@ -48,6 +49,7 @@ public class organizationDAOIMPL implements OrganizationDAO{
             OrganizationEntity organizationEntity1 = organizationRepository.getByOrganizationCode(organizationEntity.getOrganizationCode());
             return  organizationEntity1;
         }catch (Exception e){
+            log.info("----------------------save moment error------------------------------------");
             throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
         }
     }

@@ -53,7 +53,7 @@ public class SubOrganizationController {
     public ResponseEntity<?> deleteRecordBySubOrgCode(@PathVariable(value = "SubOrganizationCode") String SubOrganizationCode) {
         if (subOrganizationService.deleteRecordBySubOrgCode(SubOrganizationCode)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
-
+            log.info("-------------------------"+SubOrganizationCode+"-hard---delete---done-- successfully-----------------");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         } else {
             return null;
@@ -66,7 +66,7 @@ public class SubOrganizationController {
     public ResponseEntity<?> statusOfSubOrg(@PathVariable(value = "SubOrganizationCode") String SubOrganizationCode, @PathVariable(value = "status") Status status) {
         if (subOrganizationService.statusOfSubOrg(SubOrganizationCode, status)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
-
+            log.info("-------------------------"+SubOrganizationCode+"-deactivated successfully-----------------");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         } else {
             return null;

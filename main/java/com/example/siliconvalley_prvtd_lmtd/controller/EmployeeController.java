@@ -8,13 +8,14 @@ import com.example.siliconvalley_prvtd_lmtd.responseDTO.EmployeesResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ProjectsResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.service.EmployeeService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("api/v1/employee")
 public class EmployeeController {
@@ -46,7 +47,7 @@ public class EmployeeController {
     public ResponseEntity<?> deleteRecordByEmployeeCode(@PathVariable(value = "employeeCode") String employeeCode) {
         if (employeeService.deleteRecordByEmployeeCode(employeeCode)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
-
+            log.info("-------------------------"+employeeCode+"-deleted successfully-----------------");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         } else {
             return null;

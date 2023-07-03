@@ -10,6 +10,7 @@ import com.example.siliconvalley_prvtd_lmtd.responseDTO.ClientResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ProjectsResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.service.ProjectService;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("api/v1/project")
 public class ProjectController {
@@ -50,7 +51,7 @@ public class ProjectController {
     public ResponseEntity<?> deactivateRecordByProjectCode(@PathVariable(value = "projectCode") String projectCode, @PathVariable(value = "status") Status status) {
         if (projectService.deactivateRecordByProjectCode(projectCode,status)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deactivate successfully");
-
+            log.info("-------------------------"+projectCode+"-deactivated successfully-----------------");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         } else {
             return null;

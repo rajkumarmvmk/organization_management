@@ -28,6 +28,7 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
             OrganizationEntity organizationEntity = organizationRepository.findByOrganizationCode(organizationCode);
             return organizationEntity;
         }else{
+            log.info("----------------------data not exists------------------------------------");
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
         }
 
@@ -37,11 +38,12 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
         try{
             log.info(String.valueOf(subOrganizationEntity));
             subOrganizationRepository.save(subOrganizationEntity);
-            log.info("-----------------------------------------");
+            log.info("-------------------------------save done successfully-----------------");
             SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.findBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
-            log.info(String.valueOf(subOrganizationEntity1));
+            log.info("------------------------{}",subOrganizationEntity1.getSubOrganizationCode());
             return subOrganizationEntity1;
         }catch (Exception e){
+            log.info("----------------------save moment error------------------------------------");
             throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
         }
     }
@@ -51,6 +53,7 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
           Page<SubOrganizationEntity> subOrganizationEntityList = subOrganizationRepository.findAll(pageable);
           return subOrganizationEntityList;
        }catch (Exception e){
+           log.info("----------------------no data found------------------------------------");
            throw new CustomException(ErrorCodes.CODE_602.name(),ErrorCodes.CODE_602.getMessage());
        }
     }
@@ -66,6 +69,7 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
            SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.getBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
            return  subOrganizationEntity1;
         }catch (Exception e){
+            log.info("----------------------save moment error------------------------------------");
             throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
         }
     }
@@ -74,6 +78,7 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
     @Override
     public void deleteSubOrganization(SubOrganizationEntity subOrganizationEntity) {
         subOrganizationRepository.deleteBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
+        log.info("------------------deletion done successfully--------------------------------");
     }
 
 }
