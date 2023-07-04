@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -34,13 +35,13 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
 
     }
     @Override
-    public SubOrganizationEntity register( SubOrganizationEntity subOrganizationEntity){
+    public Optional<SubOrganizationEntity> register( SubOrganizationEntity subOrganizationEntity){
         try{
             log.info(String.valueOf(subOrganizationEntity));
             subOrganizationRepository.save(subOrganizationEntity);
-            log.info("-------------------------------save done successfully-----------------");
-            SubOrganizationEntity subOrganizationEntity1 = subOrganizationRepository.findBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode());
-            log.info("------------------------{}",subOrganizationEntity1.getSubOrganizationCode());
+
+            Optional<SubOrganizationEntity> subOrganizationEntity1 = Optional.ofNullable(subOrganizationRepository.findBySubOrganizationCode(subOrganizationEntity.getSubOrganizationCode()));
+
             return subOrganizationEntity1;
         }catch (Exception e){
             log.info("----------------------save moment error------------------------------------");
@@ -59,8 +60,8 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
     }
     @Override
     public SubOrganizationEntity getBySubOrgCode(String subOrganizationCode){
-        SubOrganizationEntity subOrganizationEntity = subOrganizationRepository.findBySubOrganizationCode(subOrganizationCode);
-        return subOrganizationEntity;
+        Optional<SubOrganizationEntity> subOrganizationEntity = Optional.ofNullable(subOrganizationRepository.findBySubOrganizationCode(subOrganizationCode));
+        return subOrganizationEntity.get();
     }
     @Override
     public SubOrganizationEntity saveTheChange(SubOrganizationEntity subOrganizationEntity){
@@ -73,7 +74,6 @@ public class SubOrganizationDAOIMPL implements SubOrganizationDAO {
             throw new CustomException(ErrorCodes.CODE_601.name(),ErrorCodes.CODE_601.getMessage());
         }
     }
-
 
     @Override
     public void deleteSubOrganization(SubOrganizationEntity subOrganizationEntity) {

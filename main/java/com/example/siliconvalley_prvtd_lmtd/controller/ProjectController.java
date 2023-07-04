@@ -24,14 +24,14 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
-    @PostMapping("/register/org/{organizationCode}/{clientCode}")
-    public List<ProjectsResponseDTO> registerToOrganization(@RequestBody @Valid List<ProjectsRequestDTO> projectsRequestDTOList, @PathVariable(value = "organizationCode") String organizationCode,@PathVariable(value = "clientCode") String clientCode){
+    @PostMapping("/register/org")
+    public List<ProjectsResponseDTO> registerToOrganization(@RequestBody @Valid List<ProjectsRequestDTO> projectsRequestDTOList, @RequestParam(value = "organizationCode") String organizationCode,@RequestParam(value = "clientCode") String clientCode){
         List<ProjectsResponseDTO> projectsResponseDTOS =projectService.registerToOrganization(projectsRequestDTOList,organizationCode,clientCode);
         return projectsResponseDTOS;
 
     }
-    @PostMapping("/register/SubOrg/{subOrganizationCode}/{clientCode}")
-    public List<ProjectsResponseDTO> registerToSubOrganization(@RequestBody @Valid List<ProjectsRequestDTO> projectsRequestDTOList, @PathVariable(value = "subOrganizationCode") String subOrganizationCode,@PathVariable(value = "clientCode") String clientCode){
+    @PostMapping("/register/SubOrg")
+    public List<ProjectsResponseDTO> registerToSubOrganization(@RequestBody @Valid List<ProjectsRequestDTO> projectsRequestDTOList, @RequestParam(value = "subOrganizationCode") String subOrganizationCode,@RequestParam(value = "clientCode") String clientCode){
         List<ProjectsResponseDTO> projectsResponseDTOS =projectService.registerToSubOrganization(projectsRequestDTOList,subOrganizationCode,clientCode);
         return projectsResponseDTOS;
 
@@ -42,13 +42,13 @@ public class ProjectController {
         return projectsResponseDTOS;
 
     }
-    @PutMapping(value="/update/{projectCode}")
-    public ProjectsResponseDTO updateProjects(@RequestBody @Valid ProjectsUpdateRequestDTO projectsUpdateRequestDTO, @PathVariable(value="projectCode") String projectCode){
+    @PutMapping(value="/update")
+    public ProjectsResponseDTO updateProjects(@RequestBody @Valid ProjectsUpdateRequestDTO projectsUpdateRequestDTO, @RequestParam(value="projectCode") String projectCode){
         ProjectsResponseDTO projectsResponseDTO=projectService.updateProject(projectsUpdateRequestDTO,projectCode);
         return projectsResponseDTO;
     }
-    @DeleteMapping(value = "deactivate/{projectCode}/{status}")
-    public ResponseEntity<?> deactivateRecordByProjectCode(@PathVariable(value = "projectCode") String projectCode, @PathVariable(value = "status") Status status) {
+    @DeleteMapping(value = "deactivate")
+    public ResponseEntity<?> deactivateRecordByProjectCode(@RequestParam(value = "projectCode") String projectCode, @RequestParam(value = "status") Status status) {
         if (projectService.deactivateRecordByProjectCode(projectCode,status)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deactivate successfully");
             log.info("-------------------------"+projectCode+"-deactivated successfully-----------------");

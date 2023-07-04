@@ -27,30 +27,30 @@ import java.util.List;
 public class SubOrganizationController {
     @Autowired
     private SubOrganizationService subOrganizationService;
-
-    @PostMapping(value = "regsiter/{organizationCode}")
-    public SubOrganizationEndResponseDTO register(@PathVariable(value = "organizationCode") String organizationCode, @Valid @RequestBody SubOrganizationIndexRequestDTO subOrganizationIndexRequestDTO) {
+     @Transactional
+    @PostMapping(value = "register")
+    public SubOrganizationEndResponseDTO register(@RequestParam(value = "organizationCode") String organizationCode, @Valid @RequestBody SubOrganizationIndexRequestDTO subOrganizationIndexRequestDTO) {
         log.info(subOrganizationIndexRequestDTO.toString());
         SubOrganizationEndResponseDTO subOrganizationEndResponseDTO = subOrganizationService.registerSubOrganization(organizationCode, subOrganizationIndexRequestDTO);
         return subOrganizationEndResponseDTO;
     }
 
-    @GetMapping(value = "/getall/{page}/{size}/{column}")
-    public List<SubOrganizationResponseDTO> getAllSubOrganization(@PathVariable(value = "page") int page, @PathVariable(value = "size") int size, @PathVariable(value = "column") String column) {
+    @GetMapping(value = "/getall")
+    public List<SubOrganizationResponseDTO> getAllSubOrganization(@RequestParam(value = "page") int page, @RequestParam(value = "size") int size, @RequestParam(value = "column") String column) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(column));
         List<SubOrganizationResponseDTO> subOrganizationResponseDTOList = subOrganizationService.getAllSubOrganization(pageable);
         return subOrganizationResponseDTOList;
     }
 
-    @PutMapping(value = "update/{subOrganizationCode}")
-    public SubOrganizationResponseDTO updateSubOrganization(@PathVariable(value = "subOrganizationCode") String subOrganizationCode, @Valid @RequestBody SubOrganizationUpdateRequestDTO subOrganizationUpdateRequestDTO) {
+    @PutMapping(value = "update")
+    public SubOrganizationResponseDTO updateSubOrganization(@RequestParam(value = "subOrganizationCode") String subOrganizationCode, @Valid @RequestBody SubOrganizationUpdateRequestDTO subOrganizationUpdateRequestDTO) {
         SubOrganizationResponseDTO subOrganizationResponseDTO = subOrganizationService.updateSubOrganization(subOrganizationCode, subOrganizationUpdateRequestDTO);
         return subOrganizationResponseDTO;
     }
 
     @Transactional
-    @DeleteMapping(value = "/{SubOrganizationCode}")
-    public ResponseEntity<?> deleteRecordBySubOrgCode(@PathVariable(value = "SubOrganizationCode") String SubOrganizationCode) {
+    @DeleteMapping
+    public ResponseEntity<?> deleteRecordBySubOrgCode(@RequestParam(value = "SubOrganizationCode") String SubOrganizationCode) {
         if (subOrganizationService.deleteRecordBySubOrgCode(SubOrganizationCode)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
             log.info("-------------------------"+SubOrganizationCode+"-hard---delete---done-- successfully-----------------");
@@ -62,11 +62,11 @@ public class SubOrganizationController {
 
     }
 
-    @DeleteMapping(value = "deactivate/{SubOrganizationCode}/{status}")
-    public ResponseEntity<?> statusOfSubOrg(@PathVariable(value = "SubOrganizationCode") String SubOrganizationCode, @PathVariable(value = "status") Status status) {
-        if (subOrganizationService.statusOfSubOrg(SubOrganizationCode, status)) {
+    @DeleteMapping(value = "deactivate")
+    public ResponseEntity<?> statusOfSubOrg(@RequestParam(value = "subOrganizationCode") String subOrganizationCode, @RequestParam(value = "status") Status status) {
+        if (subOrganizationService.statusOfSubOrg(subOrganizationCode, status)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
-            log.info("-------------------------"+SubOrganizationCode+"-deactivated successfully-----------------");
+            log.info("-------------------------"+subOrganizationCode+"-deactivated successfully-----------------");
             return new ResponseEntity<>(errorResponse, HttpStatus.OK);
         } else {
             return null;

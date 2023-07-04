@@ -27,7 +27,7 @@ public class OrganizationServiceIMPL implements OrganizationService {
     private OrganizationDAO organizationDAO;
     @Override
     public OrganizationResponseDTO register(OrganizationRequestDTO organizationRequestDTO) {
-        log.info("----------------------{}",organizationRequestDTO.getOrganizationCode());
+        log.debug("----------------------{}",organizationRequestDTO.getOrganizationCode());
         OrganizationEntity organizationEntity = new OrganizationEntity();
         OrganizationResponseDTO organizationResponseDTO = new OrganizationResponseDTO();
         BeanUtils.copyProperties(organizationRequestDTO, organizationEntity);
@@ -51,28 +51,27 @@ public class OrganizationServiceIMPL implements OrganizationService {
     }
     @Override
     public OrganizationResponseDTO updateOrganization(String organizationCode, OrganizationUpdateRequestDTO organizationUpdateRequestDTO) {
-        log.info("--------------------------{}",organizationCode);
         OrganizationEntity organizationEntity = organizationDAO.getByOrgCode(organizationCode);
-        log.info("---------------------------{}",organizationEntity.getOrganizationCode());
+        log.debug("---------------------------{}",organizationEntity.getOrganizationCode());
         BeanUtils.copyProperties(organizationUpdateRequestDTO, organizationEntity);
         OrganizationEntity organizationEntity1 = organizationDAO.saveTheChange(organizationEntity);
-        log.info("---------------------------{}",organizationEntity1.getOrganizationCode());
+        log.debug("---------------------------{}",organizationEntity1.getOrganizationCode());
         OrganizationResponseDTO organizationResponseDTO = new OrganizationResponseDTO();
         BeanUtils.copyProperties(organizationEntity1, organizationResponseDTO);
-        log.info("---------------------------{}",organizationResponseDTO.getOrganizationCode());
+        log.debug("---------------------------{}",organizationResponseDTO.getOrganizationCode());
         return organizationResponseDTO;
     }
     @Override
     public boolean statusOfOrg(String organizationCode, Status status) {
         OrganizationEntity organizationEntity = organizationDAO.getByOrgCode(organizationCode);
-        log.info("----------------------{}",organizationEntity.getOrganizationCode()+"-----available------");
+        log.debug("----------------------{}",organizationEntity.getOrganizationCode()+"-----available------");
         if (organizationEntity != null) {
             organizationEntity.setStatus(status);
             organizationDAO.saveTheChange(organizationEntity);
             return true;
 
         } else {
-            log.info("---------------------data not exists---------------------------------");
+            log.error("---------------------data not exists---------------------------------");
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
         }
 

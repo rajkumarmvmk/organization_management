@@ -21,14 +21,14 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
-    @PostMapping("/register/org/{organizationCode}")
-    public List<EmployeesResponseDTO> registerEmpToOrg(@RequestBody @Valid List<EmployeesRequestDTO> employeesRequestDTOS,String organizationCode){
+    @PostMapping("/register/org")
+    public List<EmployeesResponseDTO> registerEmpToOrg(@RequestBody @Valid List<EmployeesRequestDTO> employeesRequestDTOS,@RequestParam(value = "organizationCode") String organizationCode){
        List<EmployeesResponseDTO> employeesResponseDTOS = employeeService.registerEmpOrg(employeesRequestDTOS,organizationCode);
        return employeesResponseDTOS;
 
     }
-    @PostMapping("/register/subOrg/{subOrganizationCode}")
-    public List<EmployeesResponseDTO> registerEmpToSubOrg(@RequestBody @Valid List<EmployeesRequestDTO> employeesRequestDTOS,String subOrganizationCode){
+    @PostMapping("/register/subOrg")
+    public List<EmployeesResponseDTO> registerEmpToSubOrg(@RequestBody @Valid List<EmployeesRequestDTO> employeesRequestDTOS,@RequestParam(value="subOrganizationCode") String subOrganizationCode){
         List<EmployeesResponseDTO> employeesResponseDTOS = employeeService.registerEmpSubOrg(employeesRequestDTOS,subOrganizationCode);
         return employeesResponseDTOS;
 
@@ -38,13 +38,13 @@ public class EmployeeController {
         List<EmployeesResponseDTO> employeesResponseDTOS = employeeService.getAll();
         return employeesResponseDTOS;
     }
-    @PutMapping(value="/update/{employeeCode}")
-    public EmployeesResponseDTO updateEmployee(@RequestBody @Valid EmployeesUpdateRequestDTO employeesUpdateRequestDTO, @PathVariable(value="employeeCode") String employeeCode){
+    @PutMapping(value="/update")
+    public EmployeesResponseDTO updateEmployee(@RequestBody @Valid EmployeesUpdateRequestDTO employeesUpdateRequestDTO, @RequestParam(value="employeeCode") String employeeCode){
         EmployeesResponseDTO employeesResponseDTO=employeeService.updateEmployee(employeesUpdateRequestDTO,employeeCode);
         return employeesResponseDTO;
     }
-    @DeleteMapping(value = "/{employeeCode}")
-    public ResponseEntity<?> deleteRecordByEmployeeCode(@PathVariable(value = "employeeCode") String employeeCode) {
+    @DeleteMapping
+    public ResponseEntity<?> deleteRecordByEmployeeCode(@RequestParam(value = "employeeCode") String employeeCode) {
         if (employeeService.deleteRecordByEmployeeCode(employeeCode)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deleted successfully");
             log.info("-------------------------"+employeeCode+"-deleted successfully-----------------");

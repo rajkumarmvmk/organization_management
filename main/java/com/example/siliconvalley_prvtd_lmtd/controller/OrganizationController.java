@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -39,15 +40,15 @@ public class OrganizationController {
         return organizationResponseDTOS;
 
     }
-    @PutMapping(value = "update/{organizationCode}")
-    public OrganizationResponseDTO updateOrganization(@PathVariable(value = "organizationCode") String organizationCode, @Valid @RequestBody OrganizationUpdateRequestDTO organizationUpdateRequestDTO) {
+    @PutMapping(value = "update")
+    public OrganizationResponseDTO updateOrganization(@RequestParam(value = "organizationCode") String organizationCode, @Valid @RequestBody OrganizationUpdateRequestDTO organizationUpdateRequestDTO) {
         log.info("---------------{}",organizationCode);
         OrganizationResponseDTO organizationResponseDTO = organizationService.updateOrganization(organizationCode, organizationUpdateRequestDTO);
         log.info("-----------------{}",organizationResponseDTO.getOrganizationCode());
         return organizationResponseDTO;
     }
-    @DeleteMapping(value = "deactivate/{organizationCode}/{status}")
-    public ResponseEntity<?> statusOfSubOrg(@PathVariable(value = "organizationCode") String organizationCode, @PathVariable(value = "status") Status status) {
+    @DeleteMapping(value = "deactivate")
+    public ResponseEntity<?> statusOfSubOrg(@RequestParam(value = "organizationCode") String organizationCode, @RequestParam(value = "status") Status status) {
         log.info("----------------------------{}",organizationCode);
         if (organizationService.statusOfOrg(organizationCode, status)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deactivated successfully");

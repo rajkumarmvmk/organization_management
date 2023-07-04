@@ -24,16 +24,16 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @PostMapping("/register/sub/{subOrganizationCode}")
-    public List<ClientResponseDTO> registerToSubOrg(@RequestBody @Valid List<ClientRequestDTO> clientRequestDTOS, @PathVariable(value = "subOrganizationCode") String subOrganizationCode) {
+    @PostMapping("/register/sub")
+    public List<ClientResponseDTO> registerToSubOrg(@RequestBody @Valid List<ClientRequestDTO> clientRequestDTOS, @RequestParam(value = "subOrganizationCode") String subOrganizationCode) {
 
         List<ClientResponseDTO> clientResponseDTOS = clientService.registerToSubOrg(clientRequestDTOS, subOrganizationCode);
         return clientResponseDTOS;
 
     }
 
-    @PostMapping("/register/org/{organizationCode}")
-    public List<ClientResponseDTO> registerToOrg(@RequestBody @Valid List<ClientRequestDTO> clientRequestDTOS, @PathVariable(value = "organizationCode") String organizationCode) {
+    @PostMapping("/register/org")
+    public List<ClientResponseDTO> registerToOrg(@RequestBody @Valid List<ClientRequestDTO> clientRequestDTOS, @RequestParam(value = "organizationCode") String organizationCode) {
 
         List<ClientResponseDTO> clientResponseDTOS = clientService.registerToOrg(clientRequestDTOS, organizationCode);
         return clientResponseDTOS;
@@ -46,14 +46,14 @@ public class ClientController {
         return clientResponseDTOS;
     }
 
-    @PutMapping(value = "/update/{clientCode}")
-    public ClientResponseDTO updateClient(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO, @PathVariable(value = "clientCode") String clientCode) {
+    @PutMapping(value = "/update")
+    public ClientResponseDTO updateClient(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO, @RequestParam(value = "clientCode") String clientCode) {
         ClientResponseDTO clientResponseDTO = clientService.updateClient(clientUpdateRequestDTO, clientCode);
         return clientResponseDTO;
     }
 
-    @DeleteMapping(value = "deactivate/{clientCode}/{status}")
-    public ResponseEntity<?> deactivateRecordByProjectCode(@PathVariable(value = "clientCode") String clientCode, @PathVariable(value = "status") Status status) {
+    @DeleteMapping(value = "deactivate")
+    public ResponseEntity<?> deactivateRecordByProjectCode(@RequestParam(value = "clientCode") String clientCode, @RequestParam(value = "status") Status status) {
         if (clientService.deactivateRecordByClientCode(clientCode,status)) {
             ErrorResponse errorResponse = new ErrorResponse("CODE_606", "given record deactivate successfully");
             log.info("-------------------------"+clientCode+"-deactivated successfully-----------------");

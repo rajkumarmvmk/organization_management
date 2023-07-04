@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class SubOrganizationServiceIMPL implements SubOrganizationService {
@@ -40,9 +42,10 @@ public class SubOrganizationServiceIMPL implements SubOrganizationService {
             OrganizationEntity organizationEntity = suborganizationDAO.fetching(organizationCode);
             subOrganizationEntity.setOrganizationEntity(organizationEntity);
             log.info(String.valueOf(subOrganizationEntity));
-            SubOrganizationEntity subOrganizationEntity1 = suborganizationDAO.register(subOrganizationEntity);
+           Optional<SubOrganizationEntity> subOrganizationEntity1 = suborganizationDAO.register(subOrganizationEntity);
+           if(subOrganizationEntity1.isPresent()){
             BeanUtils.copyProperties(subOrganizationEntity1, subOrganizationResponseDTO);
-            subOrganizationResponseDTOList.add(subOrganizationResponseDTO);
+            subOrganizationResponseDTOList.add(subOrganizationResponseDTO);}else{throw new CustomException(ErrorCodes.CODE_602.name(),ErrorCodes.CODE_602.getMessage());}
         });
         SubOrganizationEndResponseDTO subOrganizationEndResponseDTO = new SubOrganizationEndResponseDTO();
         subOrganizationEndResponseDTO.setSubOrganizationResponseDTOList(subOrganizationResponseDTOList);
@@ -86,7 +89,7 @@ public class SubOrganizationServiceIMPL implements SubOrganizationService {
 
 
         } else {
-            log.info("----------------------data not exists------------------------------------");
+            log.error("----------------------data not exists------------------------------------");
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
         }
 
@@ -103,7 +106,7 @@ public class SubOrganizationServiceIMPL implements SubOrganizationService {
 
 
         } else {
-            log.info("----------------------data not exists------------------------------------");
+            log.error("----------------------data not exists------------------------------------");
             throw new CustomException(ErrorCodes.CODE_602.name(), ErrorCodes.CODE_602.getMessage());
         }
 
