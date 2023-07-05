@@ -3,6 +3,7 @@ package com.example.siliconvalley_prvtd_lmtd.controller;
 import com.example.siliconvalley_prvtd_lmtd.dao.ClientDAO;
 import com.example.siliconvalley_prvtd_lmtd.enumBox.Status;
 import com.example.siliconvalley_prvtd_lmtd.exception.ErrorResponse;
+import com.example.siliconvalley_prvtd_lmtd.exceptionBox.response.Response;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.ClientRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.ClientUpdateRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ClientResponseDTO;
@@ -25,10 +26,10 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping("/register/sub")
-    public List<ClientResponseDTO> registerToSubOrg(@RequestBody @Valid List<ClientRequestDTO> clientRequestDTOS, @RequestParam(value = "subOrganizationCode") String subOrganizationCode) {
+    public ResponseEntity<List<ClientResponseDTO>> registerToSubOrg(@RequestBody @Valid List<ClientRequestDTO> clientRequestDTOS, @RequestParam(value = "subOrganizationCode") String subOrganizationCode) {
 
         List<ClientResponseDTO> clientResponseDTOS = clientService.registerToSubOrg(clientRequestDTOS, subOrganizationCode);
-        return clientResponseDTOS;
+        return new ResponseEntity<>(clientResponseDTOS,HttpStatus.OK);
 
     }
 
@@ -41,9 +42,9 @@ public class ClientController {
     }
 
     @GetMapping("/getall")
-    public List<ClientResponseDTO> GetAll() {
+    public ResponseEntity<List<ClientResponseDTO>> GetAll() {
         List<ClientResponseDTO> clientResponseDTOS = clientService.getAll();
-        return clientResponseDTOS;
+        return new ResponseEntity<>(clientResponseDTOS,HttpStatus.OK);
     }
 
     @PutMapping(value = "/update")

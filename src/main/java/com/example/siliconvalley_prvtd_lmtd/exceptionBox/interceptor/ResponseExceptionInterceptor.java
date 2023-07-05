@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 import lombok.extern.slf4j.Slf4j;
-@ControllerAdvice
 @Slf4j
+@ControllerAdvice
 public class ResponseExceptionInterceptor {
     @Autowired
     private MessageSource messageSource;
