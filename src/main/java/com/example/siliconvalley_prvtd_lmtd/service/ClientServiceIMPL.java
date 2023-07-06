@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+
+import static com.example.siliconvalley_prvtd_lmtd.enumBox.Status.ACTIVE;
 
 
 @Slf4j
@@ -65,9 +68,17 @@ public class ClientServiceIMPL implements ClientService{
         List<ClientEntity> clientEntities = clientDAO.getAll();
         log.info("------------------"+clientEntities.toString());
         List<ClientResponseDTO> clientResponseDTOS=new ArrayList<>();
+        Thread thread=new Thread();
+        thread.start();
+      //  Predicate<ClientEntity> startsWithAPredicate = name -> name.getStatus(Status.ACTIVE);
         clientEntities.stream().forEach(list -> {
             ClientResponseDTO clientResponseDTO=new ClientResponseDTO();
             BeanUtils.copyProperties(list,clientResponseDTO);
+            try {
+                Thread.sleep(5000); // Pause for 1 second
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             clientResponseDTOS.add(clientResponseDTO);
 
         });

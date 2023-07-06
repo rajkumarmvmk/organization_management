@@ -32,7 +32,7 @@ public class OrganizationController {
         log.info(String.valueOf("------------"+organizationResponseDTO.getOrganizationCode()+"----This record registered------"));
         return organizationResponseDTO;
     }
-    @GetMapping("/Getall")
+    @GetMapping("/all")
     public List<OrganizationResponseDTO> getAll(){
         List<OrganizationResponseDTO> organizationResponseDTOS=organizationService.getAll();
         log.info("---------------{}",organizationResponseDTOS);
