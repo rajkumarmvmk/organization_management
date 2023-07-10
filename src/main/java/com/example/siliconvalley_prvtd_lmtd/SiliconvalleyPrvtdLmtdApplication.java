@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "SiliconvalleyPrvtdLmtdApplication", version = "2.0", description = "Employees Information"))
+//@OpenAPIDefinition(info = @Info(title = "SiliconvalleyPrvtdLmtdApplication", version = "2.0", description = "Employees Information"))
 public class SiliconvalleyPrvtdLmtdApplication {
 
 	public static void main(String[] args) {
