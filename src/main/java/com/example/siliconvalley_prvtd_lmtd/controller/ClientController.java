@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("api/v1/client")
-@PreAuthorize("hasAuthority('admin:read')")
+@PreAuthorize("hasRole('MANAGER')")
 public class ClientController {
     @Autowired
     private ClientService clientService;

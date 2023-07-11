@@ -3,6 +3,7 @@ package com.example.siliconvalley_prvtd_lmtd;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,13 +27,17 @@ import static com.example.siliconvalley_prvtd_lmtd.enumBox.Role.MANAGER;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+//@RequiredArgsConstructor
+@Slf4j
 public class SecurityConfiguration {
 @Autowired
   private  JwtAuthenticationFilter jwtAuthFilter;
 @Autowired
   private  AuthenticationProvider authenticationProvider;
-  @Autowired
-  private  LogoutHandler logoutHandler;
+@Autowired
+   private  LogoutHandler logoutHandler;
+
+
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,6 +57,7 @@ public class SecurityConfiguration {
                 "/swagger-ui/**",
                 "/webjars/**",
                 "/swagger-ui.html"
+
         )
           .permitAll()
 
@@ -83,9 +89,10 @@ public class SecurityConfiguration {
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         .logout()
         .logoutUrl("/api/v1/auth/logout")
-        .addLogoutHandler(logoutHandler)
+        //.addLogoutHandler(logoutHandler)
         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
     ;
+    log.info("--------------------------------------------------------------------");
 
     return http.build();
   }

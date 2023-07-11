@@ -1,5 +1,6 @@
 package com.example.siliconvalley_prvtd_lmtd.controller;
 
+import com.example.siliconvalley_prvtd_lmtd.exceptionBox.customException.BusinessException;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.AuthenticationRequest;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.RegisterRequest;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.AuthenticationResponse;
@@ -7,6 +8,7 @@ import com.example.siliconvalley_prvtd_lmtd.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,15 +19,15 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-@RequiredArgsConstructor
 public class AuthenticationController {
 
-  private final AuthenticationService service;
+  @Autowired
+  private AuthenticationService service;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
+  public ResponseEntity<AuthenticationResponse> register (
       @RequestBody RegisterRequest request
-  ) {
+  ) throws BusinessException {
     return ResponseEntity.ok(service.register(request));
   }
   @PostMapping("/authenticate")
