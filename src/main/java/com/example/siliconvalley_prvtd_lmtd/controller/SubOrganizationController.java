@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("api/v1/suborganization")
+@PreAuthorize("hasRole('ADMIN')")
 public class SubOrganizationController {
     @Autowired
     private SubOrganizationService subOrganizationService;

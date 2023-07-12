@@ -26,7 +26,7 @@ public class ResponseInterceptor implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
 
-            return false;
+        return returnType.getParameterType().equals(Response.class);
 
     }
 

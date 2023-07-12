@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
+@Slf4j
 @Component
 //@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -45,11 +46,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       filterChain.doFilter(request, response);
       return;
     }
+    if(request.getServletPath().contains("/swagger-ui/")) {
+      filterChain.doFilter(request, response);
+
+      return;
+    }
+      if(request.getServletPath().contains("/v3/api-docs")){
+        filterChain.doFilter(request,response);
+ if(request.getServletPath().contains("/api/v1/")){
+      filterChain.doFilter(request,response);
+
+      return;
+    }
+        return;
+    }
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
     final String userEmail;
     if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-      filterChain.doFilter(request, response);
+
+      response.setContentType(APPLICATION_JSON_VALUE);
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+      final Map<String, Object> body = new HashMap<>();
+      body.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+      body.put("error", "Unauthorized");
+      body.put("message", "ACCESS DENIED");
+      body.put("path", request.getServletPath());
+    new ObjectMapper().writeValue(response.getOutputStream(),body);
       return;
     }
     jwt = authHeader.substring(7);

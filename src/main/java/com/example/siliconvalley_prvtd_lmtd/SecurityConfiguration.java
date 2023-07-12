@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,7 +28,7 @@ import static com.example.siliconvalley_prvtd_lmtd.enumBox.Role.MANAGER;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-//@RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Slf4j
 public class SecurityConfiguration {
 @Autowired
@@ -62,7 +63,7 @@ public class SecurityConfiguration {
           .permitAll()
 
 
-        .requestMatchers("/api/v1/client/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+      // .requestMatchers("/api/v1/**").hasAnyRole(ADMIN.name(), MANAGER.name())
 //
 //
 //        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
@@ -89,10 +90,9 @@ public class SecurityConfiguration {
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
         .logout()
         .logoutUrl("/api/v1/auth/logout")
-        //.addLogoutHandler(logoutHandler)
+        .addLogoutHandler(logoutHandler)
         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
     ;
-    log.info("--------------------------------------------------------------------");
 
     return http.build();
   }
