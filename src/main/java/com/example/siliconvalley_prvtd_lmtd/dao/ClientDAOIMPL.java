@@ -19,7 +19,7 @@ public class ClientDAOIMPL implements ClientDAO{
     public ClientEntity register(ClientEntity clientEntity){
         clientRepository.save(clientEntity);
         if(clientRepository.existsByClientCode(clientEntity.getClientCode())){
-            ClientEntity clientEntity1=clientRepository.findByClientCode(clientEntity.getClientCode());
+            ClientEntity clientEntity1=clientRepository.findByClientsCode(clientEntity.getClientCode());
             return clientEntity1;
         }else{
             log.info("----------------------data not exists------------------------------------");
@@ -30,7 +30,7 @@ public class ClientDAOIMPL implements ClientDAO{
     @Override
     public ClientEntity fetchRecord(String clientCode){
         if(clientRepository.existsByClientCode(clientCode)){
-            ClientEntity clientEntity=clientRepository.findByClientCode(clientCode);
+            ClientEntity clientEntity=clientRepository.findByClientsCode(clientCode);
             return clientEntity;
         }else{
             log.info("----------------------data not exists------------------------------------");
@@ -48,7 +48,7 @@ public class ClientDAOIMPL implements ClientDAO{
     public ClientEntity saveTheChange(ClientEntity clientEntity){
         clientRepository.save(clientEntity);
         if(clientRepository.existsByClientCode(clientEntity.getClientCode())){
-            ClientEntity clientEntity1=clientRepository.findByClientCode(clientEntity.getClientCode());
+            ClientEntity clientEntity1=clientRepository.findByClientsCode(clientEntity.getClientCode());
             return clientEntity1;
         }else{
             log.info("----------------------data not exists------------------------------------");

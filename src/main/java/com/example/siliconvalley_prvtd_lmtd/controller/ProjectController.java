@@ -8,6 +8,7 @@ import com.example.siliconvalley_prvtd_lmtd.requestDTO.ProjectsRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.requestDTO.ProjectsUpdateRequestDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ClientResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ProjectsResponseDTO;
+import com.example.siliconvalley_prvtd_lmtd.service.BuilderService;
 import com.example.siliconvalley_prvtd_lmtd.service.ProjectService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ import java.util.List;
 @RequestMapping("api/v1/project")
 @PreAuthorize("hasRole('MANAGER') or hasRole('ADMIN')")
 public class ProjectController {
+    @Autowired
+    private BuilderService builderService;
     @Autowired
     private ProjectService projectService;
     @PostMapping("/register/org")
@@ -59,6 +62,10 @@ public class ProjectController {
             return null;
 
         }
+    }
+    @GetMapping(value="search")
+    public List<ProjectsResponseDTO> projectsByStatusAndProjectTitle(@RequestParam(value = "status")Status status,@RequestParam(value = "projectTitle") String projectTitle ){
+      return builderService.projectsByStatusAndProjectTitle(status,projectTitle);
     }
 
 }
