@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -48,17 +49,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     if(request.getServletPath().contains("/swagger-ui/")) {
       filterChain.doFilter(request, response);
-
       return;
     }
       if(request.getServletPath().contains("/v3/api-docs")){
         filterChain.doFilter(request,response);
- if(request.getServletPath().contains("/api/v1/")){
-      filterChain.doFilter(request,response);
-
-      return;
-    }
         return;
+    }
+    if(request.getServletPath().contains("/actuator/")){
+      filterChain.doFilter(request,response);
+      return;
     }
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
