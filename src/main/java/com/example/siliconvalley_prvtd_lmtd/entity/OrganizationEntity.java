@@ -4,6 +4,7 @@ import com.example.siliconvalley_prvtd_lmtd.enumBox.CompanyType;
 import com.example.siliconvalley_prvtd_lmtd.enumBox.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 @Entity
 @AllArgsConstructor
@@ -11,6 +12,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @Getter
 @ToString
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="organization")
 public class OrganizationEntity {
     @Id

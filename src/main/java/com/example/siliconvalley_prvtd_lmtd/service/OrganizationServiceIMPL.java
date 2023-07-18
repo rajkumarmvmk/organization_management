@@ -14,6 +14,8 @@ import com.example.siliconvalley_prvtd_lmtd.responseDTO.OrganizationResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.ProjectsResponseDTO;
 import com.example.siliconvalley_prvtd_lmtd.responseDTO.SubOrganizationResponseDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,19 @@ import java.util.List;
 public class OrganizationServiceIMPL implements OrganizationService {
     @Autowired
     private OrganizationDAO organizationDAO;
+//    @Autowired
+//    private SessionFactory sessionFactory;
+//
+//    public void printCacheStatistics() {
+//        Statistics statistics = sessionFactory.getStatistics();
+//        long secondLevelCacheHitCount = statistics.getSecondLevelCacheHitCount();
+//        long secondLevelCacheMissCount = statistics.getSecondLevelCacheMissCount();
+//        long secondLevelCachePutCount = statistics.getSecondLevelCachePutCount();
+//
+//        System.out.println("Second Level Cache Hit Count: " + secondLevelCacheHitCount);
+//        System.out.println("Second Level Cache Miss Count: " + secondLevelCacheMissCount);
+//        System.out.println("Second Level Cache Put Count: " + secondLevelCachePutCount);
+//    }
     @Override
     public OrganizationResponseDTO register(OrganizationRequestDTO organizationRequestDTO) {
         log.debug("----------------------{}",organizationRequestDTO.getOrganizationCode());

@@ -3,6 +3,7 @@ package com.example.siliconvalley_prvtd_lmtd.entity;
 import com.example.siliconvalley_prvtd_lmtd.enumBox.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @ToString
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name="projects")
 public class ProjectsEntity {
     @Id

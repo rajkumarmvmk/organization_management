@@ -47,8 +47,8 @@ public class AuthenticationService {
 
 
   public AuthenticationResponse register(RegisterRequest request) throws BusinessException {
-   User userRecord =repository.getByEmail(request.getEmail());
-    if(!request.getEmail().equals(userRecord.getEmail())){
+   Optional<User> userRecord =repository.getByEmail(request.getEmail());
+    if(userRecord.isEmpty() || !request.getEmail().equals(userRecord.get().getEmail())){
       log.info(String.valueOf(repository.findByEmail(request.getEmail())));
       var user = User.builder()
               .firstname(request.getFirstname())

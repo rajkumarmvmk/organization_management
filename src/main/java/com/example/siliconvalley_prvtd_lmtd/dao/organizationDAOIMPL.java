@@ -35,6 +35,7 @@ public class organizationDAOIMPL implements OrganizationDAO{
     @Override
     public List<OrganizationEntity> getAll(){
         List<OrganizationEntity> organizationEntities=organizationRepository.findAll();
+        log.info("<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return organizationEntities;
     }
     @Override
